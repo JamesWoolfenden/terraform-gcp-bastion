@@ -12,4 +12,3 @@ variable "subnetwork_project" {
 
 variable "inst_zone" {
 }
-
