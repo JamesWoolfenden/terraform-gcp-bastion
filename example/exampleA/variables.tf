@@ -10,5 +10,14 @@ variable "subnetwork" {
 variable "subnetwork_project" {
 }
 
-variable "inst_zone" {
+variable "zone" {
+}
+
+
+variable "region" {
+
+}
+
+variable "image" {
+
 }
