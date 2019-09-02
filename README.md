@@ -1,8 +1,8 @@
 
 # terraform-gcp-bastion
 
-The beginnings of a bastion module for gcp, now with firewall.
-ExampleA is set up to work with Terraform cloud.
+The beginnings of a bastion module for gcp, now with compute firewall.
+ExampleA is set up to work within the Terraform Cloud.
 
 ## Usage
 
