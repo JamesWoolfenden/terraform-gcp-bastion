@@ -1,6 +1,7 @@
 variable "name" {
   type        = string
   description = "The name of the Bastion Instance"
+  default     = "bastion"
 }
 
 variable "project" {
@@ -49,7 +50,6 @@ variable "network" {
   type        = string
   description = "The name of the vpc for the firewall to be created in"
 }
-
 variable "firewall" {
   description= "Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up"
   type       = number

@@ -30,11 +30,11 @@ type=string
 }
 
 variable "source_cidrs" {
-  type       = list
-  description= "The ranges to allow to connect to the bastion"
+  type        = list
+  description = "The ranges to allow to connect to the bastion"
 }
 
 variable "network" {
-  type=string
-  description="The name of the vpc for the firewall to be created in"
+  type        = string
+  description = "The name of the vpc for the firewall to be created in"
 }
