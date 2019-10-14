@@ -5,6 +5,7 @@ module "bastion" {
   source_cidrs       = var.source_cidrs
   subnetwork         = var.subnetwork
   subnetwork_project = var.subnetwork_project
-  vpc_name           = var.vpc_name
+  network            = var.network
   zone               = var.zone
+  name               = var.name
 }

@@ -1,7 +1,6 @@
 variable "name" {
   type        = string
   description = "The name of the Bastion Instance"
-  default     = "bastion"
 }
 
 variable "project" {
@@ -31,9 +30,9 @@ variable "machine_type" {
 }
 
 variable "tags" {
-  description = ""
+  description = "Hardcoded tags that associates the correct firewall to the instance"
   type        = "list"
-  default     = ["bastion"]
+  default     = ["bastion-ssh"]
 }
 
 variable "image" {
@@ -42,12 +41,28 @@ variable "image" {
 }
 
 variable "source_cidrs" {
-  type=list
-  description="The ranges to allow to connect to the bastion"
+  type        = list
+  description = "The ranges to allow to connect to the bastion"
 }
 
-variable "vpc_name" {
+variable "network" {
+  type        = string
+  description = "The name of the vpc for the firewall to be created in"
+}
+
+variable "firewall" {
+  description= "Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up"
+  type       = number
+  default    = 0
+}
+
+variable "service_email" {
+  description="Service account username"
   type=string
-  description="The name of the vpc for the firewall to be created in"
 }
 
+variable "service_scope" {
+  type=list
+  default=[
+    "https://www.googleapis.com/auth/cloud-platform"]
+}

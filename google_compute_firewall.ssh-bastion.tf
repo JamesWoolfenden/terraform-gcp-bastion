@@ -1,10 +1,11 @@
 // FIREWALL RULES
 resource "google_compute_firewall" "ssh-bastion" {
-  name        = "${var.name}-ssh-bastion"
+  count       = var.firewall
+  name        = var.name
   description = "firewall to bastion"
-  network     = var.vpc_name
-  project     = var.project
-
+  network     = var.network
+  project     = var.subnetwork_project
+  
   allow {
     protocol = "tcp"
     ports    = ["22"]

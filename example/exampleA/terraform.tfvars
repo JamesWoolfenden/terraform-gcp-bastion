@@ -5,3 +5,5 @@ subnetwork         = "exampleA-subnets"
 subnetwork_project = "exampleA"
 region             = "europe-west1"
 source_cidrs       = ["0.0.0.0/0"]
+image              = "centos-7-v20190813"
+network            = "default"
