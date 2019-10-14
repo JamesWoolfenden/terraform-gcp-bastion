@@ -28,7 +28,6 @@ script:
 - terraform fmt
 - bash validate.sh
 
-## Lint check Terraform
 
 after_success:
   - git config --global user.email "builds@travis-ci.com"

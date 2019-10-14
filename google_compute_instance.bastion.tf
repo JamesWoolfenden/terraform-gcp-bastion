@@ -7,26 +7,26 @@ resource "google_compute_instance" "bastion" {
 
   boot_disk {
     initialize_params {
-      image = var.image
+      image = data.google_compute_image.image.name
     }
   }
 
   network_interface {
-    subnetwork_project = var.subnetwork_project
-    subnetwork         = var.subnetwork
-
+    subnetwork_project = var.network_interface["subnetwork_project"]
+    subnetwork         = var.network_interface["subnetwork"]
+    network            = var.network_interface["network"]
     access_config {}
   }
 
   metadata = {
-    startup-script     = "${file("${path.module}/template/install-kube.sh")}"
+    startup-script = "${file("${path.module}/template/install-kube.sh")}"
     enable-oslogin = "TRUE"
   }
 
   service_account {
-    email = var.service_email
-    scopes= var.service_scope
+    email  = var.service_email
+    scopes = var.service_scope
   }
-  
+
   allow_stopping_for_update = true
 }

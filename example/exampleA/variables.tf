@@ -1,31 +1,30 @@
 variable "name" {
-  type = string
+  description = ""
+  type        = string
 }
 
 variable "project" {
-  type = string
+  description = "The GCP project your targeting, may not be where the instances exist"
+  type        = string
 }
 
-variable "subnetwork" {
-  type = string
-}
-
-variable "subnetwork_project" {
-    type = string
+variable "network_interface" {
+  description = ""
+  type        = map
 }
 
 variable "zone" {
-    type = string
+  type = string
 }
 
 
 variable "region" {
-type=string
+  type = string
 
 }
 
 variable "image" {
-type=string
+  type = map
 
 }
 
@@ -34,7 +33,6 @@ variable "source_cidrs" {
   description = "The ranges to allow to connect to the bastion"
 }
 
-variable "network" {
-  type        = string
-  description = "The name of the vpc for the firewall to be created in"
+variable "service_email" {
+  type = string
 }

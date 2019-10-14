@@ -9,13 +9,8 @@ variable "project" {
   description = "The GCP project"
 }
 
-variable "subnetwork" {
-  type        = string
-  description = "The subnet name"
-}
-
-variable "subnetwork_project" {
-  type        = string
+variable "network_interface" {
+  type        = map
   description = ""
 }
 
@@ -37,8 +32,8 @@ variable "tags" {
 }
 
 variable "image" {
-  type        = string
-  description = "The Base image used"
+  type        = map
+  description = "Describes the base image used"
 }
 
 variable "source_cidrs" {
@@ -46,23 +41,19 @@ variable "source_cidrs" {
   description = "The ranges to allow to connect to the bastion"
 }
 
-variable "network" {
-  type        = string
-  description = "The name of the vpc for the firewall to be created in"
-}
 variable "firewall" {
-  description= "Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up"
-  type       = number
-  default    = 0
+  description = "Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up"
+  type        = number
+  default     = 0
 }
 
 variable "service_email" {
-  description="Service account username"
-  type=string
+  description = "Service account username"
+  type        = string
 }
 
 variable "service_scope" {
-  type=list
-  default=[
-    "https://www.googleapis.com/auth/cloud-platform"]
+  type = list
+  default = [
+  "https://www.googleapis.com/auth/cloud-platform"]
 }

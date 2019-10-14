@@ -3,9 +3,9 @@ resource "google_compute_firewall" "ssh-bastion" {
   count       = var.firewall
   name        = var.name
   description = "firewall to bastion"
-  network     = var.network
-  project     = var.subnetwork_project
-  
+  network     = var.network_interface["network"]
+  project     = var.network_interface["subnetwork_project"]
+
   allow {
     protocol = "tcp"
     ports    = ["22"]

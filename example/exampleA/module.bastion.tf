@@ -1,11 +1,10 @@
 module "bastion" {
-  source             = "../../"
-  image              = var.image
-  project            = var.project
-  source_cidrs       = var.source_cidrs
-  subnetwork         = var.subnetwork
-  subnetwork_project = var.subnetwork_project
-  network            = var.network
-  zone               = var.zone
-  name               = var.name
+  source            = "../../"
+  image             = var.image
+  name              = var.name
+  network_interface = var.network_interface
+  project           = var.project
+  service_email     = var.service_email
+  source_cidrs      = var.source_cidrs
+  zone              = var.zone
 }

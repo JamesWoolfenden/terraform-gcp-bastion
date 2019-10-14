@@ -12,4 +12,11 @@ build-harness
 *.ini
 *~HEAD
 *backup
+*.ini
+tmp
+lambda
+*~HEAD
+*backup
+*.bak
 *.orig
+*.gz
