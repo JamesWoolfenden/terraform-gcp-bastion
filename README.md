@@ -6,6 +6,7 @@ The beginnings of a bastion module for GCP, now with compute firewall.
 The bastion is designed to work with a private Kubernetes Cluster.
 The Bastion is enabled for OS Logins, if you add the service role and
  OS role to your users they will be able to ssh into it.
+The some basic Kubernetes tools are also installed into the bastion.
 
 ## Usage
 
