@@ -18,18 +18,18 @@ repos:
   - id: forbid-tabs
     exclude_types: [python, javascript, dtd, markdown, makefile, xml]
     exclude: binary|\.bin$
-- repo: git://github.com/kintoandar/pre-commit.git
+- repo: git://github.com/kintoandar/pre-commit
   rev: v2.1.0
   hooks:
   - id: terraform_fmt
-- repo: https://github.com/pre-commit/pre-commit-hooks.git
+- repo: git://github.com/pre-commit/pre-commit-hooks
   rev: v2.3.0
   stages:
   - commit
   - push
   hooks:
   -   id: detect-private-key
-- repo: https://github.com/detailyang/pre-commit-shell
+- repo: git://github.com/detailyang/pre-commit-shell
   rev: 1.0.5
   hooks:
   - id: shell-lint

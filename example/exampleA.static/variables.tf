@@ -25,6 +25,7 @@ variable region {
 
 variable image {
   type = map
+
 }
 
 variable source_cidrs {

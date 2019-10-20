@@ -2,11 +2,11 @@
 
 # terraform-gcp-bastion [![Build Status](https://api.travis-ci.com/JamesWoolfenden/terraform-gcp-bastion.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-gcp-bastion) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-gcp-bastion.svg)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
 
-The beginnings of a bastion module for GCP, now with compute firewall.
-The bastion is designed to work with a private Kubernetes Cluster.
-The Bastion is enabled for OS Logins, if you add the service role and
- OS role to your users they will be able to ssh into it.
-The some basic Kubernetes tools are also installed into the bastion.
+The beginnings of a bastion module for GCP, now with compute firewall options.
+The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins. You'll need  to add the service role an OS role to your users they will be able to SSH into it.
+Basic Kubernetes tools are also installed into the bastion by **default**.
+
+2 examples are included, one with and one without a static IP.
 
 ## Usage
 
@@ -14,7 +14,8 @@ Add **module.bastion.tf** to your code:-
 
 ```terraform
 module "bastion" {
-  source             = "../../"
+  source             = "JamesWoolfenden/bastion/gcp"
+  version            = "0.1.13"
   image              = var.image
   name               = var.name
   network_interface  = var.network_interface
