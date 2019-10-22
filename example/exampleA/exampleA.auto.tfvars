@@ -5,10 +5,9 @@ service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]
 image = {
-  family  = "centos-7"
+  family  = "ubuntu-1804-lts"
   project = "gce-uefi-images"
 }
-
 
 network_interface = {
   network            = "default"
