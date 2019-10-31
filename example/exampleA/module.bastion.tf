@@ -1,4 +1,4 @@
-module "bastion" {
+module bastion {
   source            = "../../"
   image             = var.image
   name              = var.name

@@ -1,10 +1,10 @@
 
-provider "google" {
+provider google {
   version = "2.5.1"
   project = var.project
   region  = var.region
 }
 
-provider "http" {
+provider http {
   version = "1.1"
 }

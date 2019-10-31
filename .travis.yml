@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:line-length
 dist: trusty
 sudo: required
 services:
@@ -27,7 +29,6 @@ script:
 - terraform init -get -backend=false -input=false
 - terraform fmt
 - bash validate.sh
-
 
 after_success:
   - git config --global user.email "builds@travis-ci.com"

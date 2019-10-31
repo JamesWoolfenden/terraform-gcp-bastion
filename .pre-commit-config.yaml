@@ -1,6 +1,7 @@
+---
 repos:
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v2.4.0
     hooks:
     -   id: check-json
     -   id: check-merge-conflict
@@ -23,7 +24,7 @@ repos:
   hooks:
   - id: terraform_fmt
 - repo: git://github.com/pre-commit/pre-commit-hooks
-  rev: v2.3.0
+  rev: v2.4.0
   stages:
   - commit
   - push
@@ -34,9 +35,22 @@ repos:
   hooks:
   - id: shell-lint
 - repo: git://github.com/igorshubovych/markdownlint-cli
-  rev: v0.18.0
+  rev: v0.19.0
   hooks:
   - id: markdownlint
+- repo: git://github.com/adrienverge/yamllint
+  rev: v1.18.0
+  hooks:
+  - id: yamllint
+    name: yamllint
+    description: This hook runs yamllint.
+    entry: yamllint
+    language: python
+    types: [file, yaml]
+- repo: git://github.com/prettier/prettier
+  rev: 1.18.2
+  hooks:
+  - id: prettier
 - repo: git://github.com/antonbabenko/pre-commit-terraform
   rev: v1.19.0
   hooks:
