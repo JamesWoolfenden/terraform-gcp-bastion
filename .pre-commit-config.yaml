@@ -1,4 +1,5 @@
 ---
+# yamllint disable rule:line-length
 repos:
   - repo: git://github.com/pre-commit/pre-commit-hooks
     rev: v2.4.0
@@ -9,12 +10,14 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
-      - id: trailing-whitespace
+      - id: pretty-format-json
+        args:
+          - --autofix
   - repo: git://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.7
     hooks:
       - id: forbid-tabs
-        exclude_types: [python, javascript, dtd, markdown, makefile, xml]
+        exclude_types: [python, javascript, dtd, markdown, makefile]
         exclude: binary|\.bin$
   - repo: git://github.com/kintoandar/pre-commit
     rev: v2.1.0
@@ -44,12 +47,12 @@ repos:
         entry: yamllint
         language: python
         types: [file, yaml]
-  - repo: git://github.com/prettier/prettier
-    rev: 1.18.2
-    hooks:
-      - id: prettier
-        exclude_types: [markdown]
   - repo: git://github.com/antonbabenko/pre-commit-terraform
     rev: v1.19.0
     hooks:
       - id: terraform_docs
+  - repo: git://github.com/prettier/prettier
+    rev: 1.18.2
+    hooks:
+      - id: prettier
+    exclude_types: [markdown]

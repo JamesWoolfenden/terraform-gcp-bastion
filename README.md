@@ -27,29 +27,30 @@ module "bastion" {
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up | number | `"0"` | no |
-| image | Describes the base image used | map | n/a | yes |
-| machine\_type | The machine type for the Bastion | string | `"n1-standard-1"` | no |
-| name | The name of the Bastion Instance | string | `"bastion"` | no |
-| nat\_ip | Values set if using a Static IP | string | `"null"` | no |
-| network\_interface |  | map | n/a | yes |
-| project | The GCP project | string | n/a | yes |
-| service\_email | Service account username | string | n/a | yes |
-| service\_scope |  | list | `[ "https://www.googleapis.com/auth/cloud-platform" ]` | no |
-| source\_cidrs | The ranges to allow to connect to the bastion | list | n/a | yes |
-| tags | Hardcoded tags that associates the correct firewall to the instance | list | `[ "bastion-ssh" ]` | no |
-| zone | The GCP zone | string | n/a | yes |
+| Name              | Description                                                                                                     |  Type  |                        Default                         | Required |
+| ----------------- | --------------------------------------------------------------------------------------------------------------- | :----: | :----------------------------------------------------: | :------: |
+| firewall          | Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up | number |                         `"0"`                          |    no    |
+| image             | Describes the base image used                                                                                   |  map   |                          n/a                           |   yes    |
+| machine_type      | The machine type for the Bastion                                                                                | string |                   `"n1-standard-1"`                    |    no    |
+| name              | The name of the Bastion Instance                                                                                | string |                      `"bastion"`                       |    no    |
+| nat_ip            | Values set if using a Static IP                                                                                 | string |                        `"null"`                        |    no    |
+| network_interface |                                                                                                                 |  map   |                          n/a                           |   yes    |
+| project           | The GCP project                                                                                                 | string |                          n/a                           |   yes    |
+| service_email     | Service account username                                                                                        | string |                          n/a                           |   yes    |
+| service_scope     |                                                                                                                 |  list  | `[ "https://www.googleapis.com/auth/cloud-platform" ]` |    no    |
+| source_cidrs      | The ranges to allow to connect to the bastion                                                                   |  list  |                          n/a                           |   yes    |
+| tags              | Hardcoded tags that associates the correct firewall to the instance                                             |  list  |                  `[ "bastion-ssh" ]`                   |    no    |
+| zone              | The GCP zone                                                                                                    | string |                          n/a                           |   yes    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| bastion\_node\_ip |  |
-| external\_ip |  |
+| Name            | Description |
+| --------------- | ----------- |
+| bastion_node_ip |             |
+| external_ip     |             |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
