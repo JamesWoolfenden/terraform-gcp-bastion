@@ -42,7 +42,7 @@ variable "source_cidrs" {
 }
 
 variable "firewall" {
-  description = "Flag to control the creation or not of a firewall rule. Maybe not needed if use a pre-prepared or shared set-up"
+  description = "Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up"
   type        = number
   default     = 0
 }

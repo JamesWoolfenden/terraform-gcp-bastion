@@ -1,4 +1,3 @@
-// FIREWALL RULES
 resource "google_compute_firewall" "ssh-bastion" {
   count       = var.firewall
   name        = var.name
