@@ -8,13 +8,16 @@ output "external_ip" {
 }
 
 output "bastion" {
-  value = google_compute_instance.bastion
+  description = "The Attributes of the Bastion"
+  value       = google_compute_instance.bastion
 }
 
 output "firewall" {
-  value = google_compute_firewall.ssh-bastion
+  description = "The Attributes of the firewall"
+  value       = google_compute_firewall.ssh-bastion
 }
 
 output "image" {
-  value = data.google_compute_image.image
+  description = "The Attributes of the Image"
+  value       = data.google_compute_image.image
 }

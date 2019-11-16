@@ -49,11 +49,11 @@ module "bastion" {
 
 | Name | Description |
 |------|-------------|
-| bastion |  |
+| bastion | The Attributes of the Bastion |
 | bastion\_node\_ip | required by Hashicorp |
 | external\_ip |  |
-| firewall |  |
-| image |  |
+| firewall | The Attributes of the firewall |
+| image | The Attributes of the Image |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
