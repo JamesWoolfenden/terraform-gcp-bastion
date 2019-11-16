@@ -1,9 +1,14 @@
-output bastion_node_ip {
-  value = module.bastion.bastion_node_ip
+
+output "bastion" {
+  value = module.bastion.bastion
 }
 
-output external_ip {
-  value = module.bastion.external_ip
+output "firewall" {
+  value = module.bastion.firewall
+}
+
+output "image" {
+  value = module.bastion.image
 }
 
 output nat_ip {

@@ -50,8 +50,6 @@ module "bastion" {
 | Name | Description |
 |------|-------------|
 | bastion | The Attributes of the Bastion |
-| bastion\_node\_ip | required by Hashicorp |
-| external\_ip |  |
 | firewall | The Attributes of the firewall |
 | image | The Attributes of the Image |
 
