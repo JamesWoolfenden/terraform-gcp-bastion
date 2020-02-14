@@ -28,22 +28,28 @@ module "bastion" {
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Providers
+
+| Name | Version |
+|------|---------|
+| google | n/a |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | number | `"0"` | no |
-| image | Describes the base image used | map | n/a | yes |
-| machine\_type | The machine type for the Bastion | string | `"n1-standard-1"` | no |
-| name | The name of the Bastion Instance | string | `"bastion"` | no |
-| nat\_ip | Values set if using a Static IP | string | `"null"` | no |
-| network\_interface |  | map | n/a | yes |
-| project | The GCP project | string | n/a | yes |
-| service\_email | Service account username | string | n/a | yes |
-| service\_scope |  | list | `[ "https://www.googleapis.com/auth/cloud-platform" ]` | no |
-| source\_cidrs | The ranges to allow to connect to the bastion | list | n/a | yes |
-| tags | Hardcoded tags that associates the correct firewall to the instance | list | `[ "bastion-ssh" ]` | no |
-| zone | The GCP zone | string | n/a | yes |
+|------|-------------|------|---------|:-----:|
+| firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
+| image | Describes the base image used | `map` | n/a | yes |
+| machine\_type | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
+| name | The name of the Bastion Instance | `string` | `"bastion"` | no |
+| nat\_ip | Values set if using a Static IP | `any` | n/a | yes |
+| network\_interface | n/a | `map` | n/a | yes |
+| project | The GCP project | `string` | n/a | yes |
+| service\_email | Service account username | `string` | n/a | yes |
+| service\_scope | n/a | `list` | <pre>[<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]<br></pre> | no |
+| source\_cidrs | The ranges to allow to connect to the bastion | `list` | n/a | yes |
+| tags | Hard-coded tags that associates the correct firewall to the instance | `list` | <pre>[<br>  "bastion-ssh"<br>]<br></pre> | no |
+| zone | The GCP zone | `string` | n/a | yes |
 
 ## Outputs
 

@@ -26,8 +26,8 @@ variable "machine_type" {
 }
 
 variable "tags" {
-  description = "Hardcoded tags that associates the correct firewall to the instance"
-  type        = "list"
+  description = "Hard-coded tags that associates the correct firewall to the instance"
+  type        = list
   default     = ["bastion-ssh"]
 }
 
