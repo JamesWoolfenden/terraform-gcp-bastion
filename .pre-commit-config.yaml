@@ -15,15 +15,24 @@ repos:
       - id: pretty-format-json
         args:
           - --autofix
+
+      - id: pretty-format-json
+        args:
+          - --autofix
   - repo: git://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.9
     hooks:
       - id: forbid-tabs
-        exclude_types: [python, javascript, dtd, markdown, makefile]
+        exclude_types:
+          - python
+          - javascript
+          - dtd
+          - markdown
+          - makefile
+          - xml
         exclude: binary|\.bin$
   - repo: git://github.com/jameswoolfenden/pre-commit-shell
     rev: 0.0.2
-    hooks:
       - id: shell-lint
   - repo: git://github.com/igorshubovych/markdownlint-cli
     rev: v0.23.2
@@ -39,10 +48,8 @@ repos:
         language: python
         types: [file, yaml]
   - repo: git://github.com/jameswoolfenden/pre-commit
-    rev: v0.1.33
+    rev: v1.25.0
     hooks:
       - id: terraform-fmt
       - id: checkov-scan
-        language_version: python3.8
       - id: tf2docs
-        language_version: python3.8
