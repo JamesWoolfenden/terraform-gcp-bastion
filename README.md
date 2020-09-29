@@ -1,6 +1,3 @@
-
-[![Slalom][logo]](https://slalom.com)
-
 # terraform-gcp-bastion [![Build Status](https://api.travis-ci.com/JamesWoolfenden/terraform-gcp-bastion.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-gcp-bastion) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-gcp-bastion.svg)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
 
 The beginnings of a bastion module for GCP, now with compute firewall options.
@@ -28,36 +25,37 @@ module "bastion" {
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Providers
 
-| Name | Version |
-|------|---------|
-| google | n/a |
+| Name   | Version |
+| ------ | ------- |
+| google | n/a     |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
-| firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
-| image | Describes the base image used | `map` | n/a | yes |
-| machine\_type | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
-| name | The name of the Bastion Instance | `string` | `"bastion"` | no |
-| nat\_ip | Values set if using a Static IP | `any` | n/a | yes |
-| network\_interface | n/a | `map` | n/a | yes |
-| project | The GCP project | `string` | n/a | yes |
-| service\_email | Service account username | `string` | n/a | yes |
-| service\_scope | n/a | `list` | <pre>[<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]<br></pre> | no |
-| source\_cidrs | The ranges to allow to connect to the bastion | `list` | n/a | yes |
-| tags | Hard-coded tags that associates the correct firewall to the instance | `list` | <pre>[<br>  "bastion-ssh"<br>]<br></pre> | no |
-| zone | The GCP zone | `string` | n/a | yes |
+| Name              | Description                                                                                                         | Type     | Default                                                                    | Required |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------- | :------: |
+| firewall          | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0`                                                                        |    no    |
+| image             | Describes the base image used                                                                                       | `map`    | n/a                                                                        |   yes    |
+| machine_type      | The machine type for the Bastion                                                                                    | `string` | `"n1-standard-1"`                                                          |    no    |
+| name              | The name of the Bastion Instance                                                                                    | `string` | `"bastion"`                                                                |    no    |
+| nat_ip            | Values set if using a Static IP                                                                                     | `any`    | n/a                                                                        |   yes    |
+| network_interface | n/a                                                                                                                 | `map`    | n/a                                                                        |   yes    |
+| project           | The GCP project                                                                                                     | `string` | n/a                                                                        |   yes    |
+| service_email     | Service account username                                                                                            | `string` | n/a                                                                        |   yes    |
+| service_scope     | n/a                                                                                                                 | `list`   | <pre>[<br> "https://www.googleapis.com/auth/cloud-platform"<br>]<br></pre> |    no    |
+| source_cidrs      | The ranges to allow to connect to the bastion                                                                       | `list`   | n/a                                                                        |   yes    |
+| tags              | Hard-coded tags that associates the correct firewall to the instance                                                | `list`   | <pre>[<br> "bastion-ssh"<br>]<br></pre>                                    |    no    |
+| zone              | The GCP zone                                                                                                        | `string` | n/a                                                                        |   yes    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| bastion | The Attributes of the Bastion |
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| bastion  | The Attributes of the Bastion  |
 | firewall | The Attributes of the firewall |
-| image | The Attributes of the Image |
+| image    | The Attributes of the Image    |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -117,8 +115,8 @@ under the License.
 [logo]: https://gist.githubusercontent.com/JamesWoolfenden/5c457434351e9fe732ca22b78fdd7d5e/raw/15933294ae2b00f5dba6557d2be88f4b4da21201/slalom-logo.png
 [website]: https://slalom.com
 [github]: https://github.com/jameswoolfenden
-[linkedin]: https://www.linkedin.com/company/slalom-consulting/
-[twitter]: https://twitter.com/Slalom
+[linkedin]: https://www.linkedin.com/in/jameswoolfenden/
+[twitter]: https://twitter.com/JimWoolfenden
 [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-aws-bastion&url=https://github.com/jameswoolfenden/terraform-aws-bastion
 [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-bastion&url=https://github.com/jameswoolfenden/terraform-aws-bastion
 [share_reddit]: https://reddit.com/submit/?url=https://github.com/jameswoolfenden/terraform-aws-bastion
