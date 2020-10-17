@@ -35,3 +35,7 @@ variable source_cidrs {
 variable service_email {
   type = string
 }
+
+variable "keyring" {
+  type = string
+}

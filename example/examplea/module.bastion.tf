@@ -7,4 +7,5 @@ module bastion {
   service_email     = var.service_email
   source_cidrs      = var.source_cidrs
   zone              = var.zone
+  keyring           = var.keyring
 }

@@ -14,3 +14,5 @@ network_interface = {
   subnetwork         = ""
   subnetwork_project = ""
 }
+
+keyring = "keyring-example"

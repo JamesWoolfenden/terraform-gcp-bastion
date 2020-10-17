@@ -62,3 +62,13 @@ variable "nat_ip" {
   description = "Values set if using a Static IP"
   default     = null
 }
+
+variable "keyring" {
+  type = string
+}
+
+
+variable "kms_key_name" {
+  type    = string
+  default = "bastion"
+}

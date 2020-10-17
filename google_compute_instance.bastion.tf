@@ -1,6 +1,4 @@
 resource "google_compute_instance" "bastion" {
-  #checkov:skip=CKV_GCP_32: "Ensure 'Block Project-wide SSH keys' is enabled for VM instances"
-  #checkov:skip=CKV_GCP_38: "Ensure VM disks for critical VMs are encrypted with Customer Supplied Encryption Keys (CSEK)"
   project      = var.project
   name         = var.name
   machine_type = var.machine_type
@@ -8,6 +6,7 @@ resource "google_compute_instance" "bastion" {
   tags         = var.tags
 
   boot_disk {
+    disk_encryption_key_raw = google_kms_crypto_key.pd.self_link
     initialize_params {
       image = data.google_compute_image.image.name
     }
@@ -23,8 +22,9 @@ resource "google_compute_instance" "bastion" {
   }
 
   metadata = {
-    startup-script = "${file("${path.module}/template/install-kube.sh")}"
-    enable-oslogin = "TRUE"
+    startup-script         = file("${path.module}/template/install-kube.sh")
+    enable-oslogin         = "TRUE"
+    block-project-ssh-keys = true
   }
 
   service_account {
