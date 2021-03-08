@@ -2,8 +2,13 @@
 
 [![Build Status](https://github.com/JamesWoolfenden/terraform-gcp-bastion/workflows/Verify%20and%20Bump/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-gcp-bastion)
 [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-gcp-bastion.svg)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/JamesWoolfenden/terraform-gcp-bastion.svg?label=latest)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.14.0-blue.svg)
+[![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/JamesWoolfenden/terraform-gcp-bastion/cis_aws)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=JamesWoolfenden%2Fterraform-gcp-bastion&benchmark=CIS+AWS+V1.2)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![checkov](https://img.shields.io/badge/checkov-verified-brightgreen)](https://www.checkov.io/)
+[![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/jameswoolfenden/terraform-gcp-bastion/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=JamesWoolfenden%2Fterraform-gcp-bastion&benchmark=INFRASTRUCTURE+SECURITY)
+
 
 The beginnings of a bastion module for GCP, now with compute firewall options.
 The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins. You'll need to add the service role an OS role to your users they will be able to SSH into it.
@@ -40,23 +45,37 @@ No requirements.
 |------|---------|
 | google | n/a |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [google_compute_firewall](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) |
+| [google_compute_image](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) |
+| [google_compute_instance](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) |
+| [google_compute_project_metadata_item](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_project_metadata_item) |
+| [google_kms_crypto_key](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
-| image | Describes the base image used | `map` | n/a | yes |
+| image | Describes the base image used | `map(any)` | n/a | yes |
 | keyring | n/a | `string` | n/a | yes |
 | kms\_key\_name | n/a | `string` | `"bastion"` | no |
 | machine\_type | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
 | name | The name of the Bastion Instance | `string` | `"bastion"` | no |
 | nat\_ip | Values set if using a Static IP | `any` | `null` | no |
-| network\_interface | n/a | `map` | n/a | yes |
+| network\_interface | n/a | `map(any)` | n/a | yes |
 | project | The GCP project | `string` | n/a | yes |
 | service\_email | Service account username | `string` | n/a | yes |
-| service\_scope | n/a | `list` | <pre>[<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]</pre> | no |
-| source\_cidrs | The ranges to allow to connect to the bastion | `list` | n/a | yes |
-| tags | Hard-coded tags that associates the correct firewall to the instance | `list` | <pre>[<br>  "bastion-ssh"<br>]</pre> | no |
+| service\_scope | n/a | `list(any)` | <pre>[<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]</pre> | no |
+| source\_cidrs | The ranges to allow to connect to the bastion | `list(any)` | n/a | yes |
+| tags | Hard-coded tags that associates the correct firewall to the instance | `list(any)` | <pre>[<br>  "bastion-ssh"<br>]</pre> | no |
 | zone | The GCP zone | `string` | n/a | yes |
 
 ## Outputs
@@ -66,7 +85,6 @@ No requirements.
 | bastion | The Attributes of the Bastion |
 | firewall | The Attributes of the firewall |
 | image | The Attributes of the Image |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Information

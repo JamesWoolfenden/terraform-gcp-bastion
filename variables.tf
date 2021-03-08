@@ -10,7 +10,7 @@ variable "project" {
 }
 
 variable "network_interface" {
-  type        = map
+  type        = map(any)
   description = ""
 }
 
@@ -27,17 +27,17 @@ variable "machine_type" {
 
 variable "tags" {
   description = "Hard-coded tags that associates the correct firewall to the instance"
-  type        = list
+  type        = list(any)
   default     = ["bastion-ssh"]
 }
 
 variable "image" {
-  type        = map
+  type        = map(any)
   description = "Describes the base image used"
 }
 
 variable "source_cidrs" {
-  type        = list
+  type        = list(any)
   description = "The ranges to allow to connect to the bastion"
 }
 
@@ -53,7 +53,7 @@ variable "service_email" {
 }
 
 variable "service_scope" {
-  type = list
+  type = list(any)
   default = [
   "https://www.googleapis.com/auth/cloud-platform"]
 }

@@ -5,7 +5,7 @@ service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]
 image = {
-  family  = "ubuntu-1804-lts"
+  family  = "ubuntu-2004-lts"
   project = "gce-uefi-images"
 }
 

@@ -11,6 +11,6 @@ output "image" {
   value = module.bastion.image
 }
 
-output nat_ip {
+output "nat_ip" {
   value = google_compute_address.static.address
 }
