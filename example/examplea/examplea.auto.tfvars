@@ -5,8 +5,8 @@ service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]
 image = {
-  family  = "ubuntu-2004-lts"
-  project = "gce-uefi-images"
+  family  = "ubuntu-minimal-2010"
+  project = "ubuntu-os-cloud"
 }
 
 network_interface = {
@@ -15,4 +15,4 @@ network_interface = {
   subnetwork_project = ""
 }
 
-keyring = "keyring-example"
+keyring = "examplea"

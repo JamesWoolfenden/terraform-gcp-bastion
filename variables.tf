@@ -64,9 +64,13 @@ variable "nat_ip" {
 }
 
 variable "keyring" {
-  type = string
+  type    = string
+  default = "examplea"
 }
 
+variable "location" {
+  default = "europe-west1"
+}
 
 variable "kms_key_name" {
   type    = string

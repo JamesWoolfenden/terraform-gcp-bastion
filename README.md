@@ -9,12 +9,21 @@
 [![checkov](https://img.shields.io/badge/checkov-verified-brightgreen)](https://www.checkov.io/)
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/jameswoolfenden/terraform-gcp-bastion/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=JamesWoolfenden%2Fterraform-gcp-bastion&benchmark=INFRASTRUCTURE+SECURITY)
 
-
 The beginnings of a bastion module for GCP, now with compute firewall options.
 The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins. You'll need to add the service role an OS role to your users they will be able to SSH into it.
 Basic Kubernetes tools are also installed into the bastion by **default**.
 
 2 examples are included, one with and one without a static IP.
+To find the image family and project:
+
+```cli
+gcloud compute images list
+```
+
+```cli
+gcloud kms locations list
+gcloud kms keyrings create --location=europe-west1 examplea
+```
 
 ## Usage
 
@@ -57,7 +66,6 @@ No Modules.
 | [google_compute_image](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) |
 | [google_compute_instance](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) |
 | [google_compute_project_metadata_item](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_project_metadata_item) |
-| [google_kms_crypto_key](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key) |
 
 ## Inputs
 
@@ -65,8 +73,9 @@ No Modules.
 |------|-------------|------|---------|:--------:|
 | firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
 | image | Describes the base image used | `map(any)` | n/a | yes |
-| keyring | n/a | `string` | n/a | yes |
+| keyring | n/a | `string` | `"examplea"` | no |
 | kms\_key\_name | n/a | `string` | `"bastion"` | no |
+| location | n/a | `string` | `"europe-west1"` | no |
 | machine\_type | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
 | name | The name of the Bastion Instance | `string` | `"bastion"` | no |
 | nat\_ip | Values set if using a Static IP | `any` | `null` | no |

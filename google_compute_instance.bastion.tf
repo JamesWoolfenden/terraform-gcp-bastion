@@ -1,4 +1,5 @@
 resource "google_compute_instance" "bastion" {
+  #checkov:skip=CKV_GCP_38:gcp encrypted by default
   project      = var.project
   name         = var.name
   machine_type = var.machine_type
@@ -6,7 +7,6 @@ resource "google_compute_instance" "bastion" {
   tags         = var.tags
 
   boot_disk {
-    disk_encryption_key_raw = google_kms_crypto_key.pd.self_link
     initialize_params {
       image = data.google_compute_image.image.name
     }
