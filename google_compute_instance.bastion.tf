@@ -1,9 +1,4 @@
 resource "google_compute_instance" "bastion" {
-  #checkov:skip=CKV_GCP_31:
-  #checkov:skip=CKV_GCP_30:
-  #checkov:skip=CKV_GCP_36:
-
-
   project      = var.project
   name         = var.name
   machine_type = var.machine_type
