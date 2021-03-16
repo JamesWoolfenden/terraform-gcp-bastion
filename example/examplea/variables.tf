@@ -39,3 +39,5 @@ variable "service_email" {
 variable "keyring" {
   type = string
 }
+
+variable "account_id" {}

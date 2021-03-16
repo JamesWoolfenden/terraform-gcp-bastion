@@ -76,3 +76,5 @@ variable "kms_key_name" {
   type    = string
   default = "bastion"
 }
+
+variable "account_id" {}

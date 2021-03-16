@@ -65,12 +65,13 @@ No Modules.
 | [google_compute_firewall](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) |
 | [google_compute_image](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) |
 | [google_compute_instance](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) |
-| [google_compute_project_metadata_item](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_project_metadata_item) |
+| [google_service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/service_account) |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| account\_id | n/a | `any` | n/a | yes |
 | firewall | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
 | image | Describes the base image used | `map(any)` | n/a | yes |
 | keyring | n/a | `string` | `"examplea"` | no |
