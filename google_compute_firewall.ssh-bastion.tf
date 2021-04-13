@@ -1,4 +1,5 @@
 resource "google_compute_firewall" "ssh-bastion" {
+  # checkov:skip=CKV_GCP_2:
   count       = var.firewall
   name        = var.name
   description = "firewall to bastion"

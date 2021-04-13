@@ -1,5 +1,6 @@
 module "bastion" {
   source            = "../../"
+  account_id        = var.account_id
   image             = var.image
   name              = var.name
   network_interface = var.network_interface
