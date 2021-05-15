@@ -1,5 +1,6 @@
 output "bastion" {
-  value = module.bastion.bastion
+  value     = module.bastion.bastion
+  sensitive = true
 }
 
 output "firewall" {

@@ -2,6 +2,7 @@
 output "bastion" {
   description = "The Attributes of the Bastion"
   value       = google_compute_instance.bastion
+  sensitive   = true
 }
 
 output "firewall" {
