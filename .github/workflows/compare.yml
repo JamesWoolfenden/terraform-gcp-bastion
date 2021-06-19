@@ -100,7 +100,7 @@ jobs:
         with:
           name: kics
           path: kics.json
-          if-no-files-found: error
+          if-no-files-found: warn
 
   upload:
     needs: [kics, terrascan, checkov, tfsec]
