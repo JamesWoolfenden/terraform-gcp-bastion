@@ -28,11 +28,11 @@ repos:
       - id: shell-lint
         exclude: template|\.template$
   - repo: git://github.com/igorshubovych/markdownlint-cli
-    rev: v0.27.1
+    rev: v0.28.1
     hooks:
       - id: markdownlint
   - repo: git://github.com/adrienverge/yamllint
-    rev: v1.26.1
+    rev: v1.26.3
     hooks:
       - id: yamllint
         name: yamllint
@@ -48,18 +48,8 @@ repos:
       - id: tf2docs
         language_version: python3.8
   - repo: git://github.com/bridgecrewio/checkov
-    rev: 2.0.149
+    rev: 2.0.374
     hooks:
       - id: checkov
         verbose: true
         entry: checkov -d example/examplea --external-checks-dir checkov
-  - repo: git://github.com/tfsec/tfsec
-    rev: v0.39.34
-    hooks:
-      - id: tfsec
-        entry: tfsec
-        args:
-          - example/examplea
-        types:
-          - terraform
-        pass_filenames: false
