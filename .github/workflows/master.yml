@@ -71,7 +71,7 @@ jobs:
           tar -xvf terraform-docs*.tar.gz --directory $GITHUB_WORKSPACE/bin
           chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
-      - uses: pre-commit/action@master
+      - uses: pre-commit/action@v2.0.3
   version:
     name: versioning
     runs-on: ubuntu-latest
