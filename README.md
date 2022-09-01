@@ -102,7 +102,7 @@ No modules.
 <!-- BEGINNING OF PRE-COMMIT-PIKE DOCS HOOK -->
 The Policy required is:
 
-```json
+```golang
 resource "google_project_iam_custom_role" "terraformXVlBzgba" {
   project     = "examplea"
   role_id     = "terraform_pike"
