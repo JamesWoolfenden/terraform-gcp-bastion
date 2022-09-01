@@ -6,7 +6,7 @@ service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]
 image = {
-  family  = "ubuntu-minimal-2110"
+  family  = "ubuntu-minimal-2204-lts"
   project = "ubuntu-os-cloud"
 }
 

@@ -118,6 +118,7 @@ resource "google_project_iam_custom_role" "terraformXVlBzgba" {
     "compute.subnetworks.use",
     "compute.subnetworks.useExternalIp",
     "compute.zones.get"
+    "compute.zones.get"
     ]
 }
 
