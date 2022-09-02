@@ -100,7 +100,7 @@ No modules.
 ## Role and Permissions
 
 <!-- BEGINNING OF PRE-COMMIT-PIKE DOCS HOOK -->
-The Policy required is:
+The Terraform resource required is:
 
 ```golang
 resource "google_project_iam_custom_role" "terraformXVlBzgba" {
@@ -108,7 +108,7 @@ resource "google_project_iam_custom_role" "terraformXVlBzgba" {
   role_id     = "terraform_pike"
   title       = "terraformXVlBzgba"
   description = "A user with least privileges"
-  permissions= [
+  permissions = [
     "compute.disks.create",
     "compute.instances.create",
     "compute.instances.delete",
@@ -117,9 +117,9 @@ resource "google_project_iam_custom_role" "terraformXVlBzgba" {
     "compute.instances.setTags",
     "compute.subnetworks.use",
     "compute.subnetworks.useExternalIp",
-    "compute.zones.get"
-    "compute.zones.get"
-    ]
+    "compute.zones.get",
+    "iam.serviceAccounts.get"
+  ]
 }
 
 ```
