@@ -109,12 +109,21 @@ resource "google_project_iam_custom_role" "terraformXVlBzgba" {
   title       = "terraformXVlBzgba"
   description = "A user with least privileges"
   permissions = [
+    "compute.addresses.create",
+    "compute.addresses.delete",
+    "compute.addresses.get",
     "compute.disks.create",
+    "compute.firewalls.create",
+    "compute.firewalls.delete",
+    "compute.firewalls.get",
+    "compute.firewalls.update",
     "compute.instances.create",
     "compute.instances.delete",
     "compute.instances.get",
     "compute.instances.setMetadata",
     "compute.instances.setTags",
+    "compute.networks.updatePolicy",
+    "compute.networks.use",
     "compute.subnetworks.use",
     "compute.subnetworks.useExternalIp",
     "compute.zones.get",
