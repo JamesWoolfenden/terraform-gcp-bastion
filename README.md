@@ -22,7 +22,7 @@ gcloud compute images list
 
 ```cli
 gcloud kms locations list
-gcloud kms keyrings create --location=europe-west1 examplea
+gcloud kms keyrings create --location=europe-west1 pike
 ```
 
 ## Usage
@@ -104,7 +104,7 @@ The Terraform resource required is:
 
 ```golang
 resource "google_project_iam_custom_role" "terraformXVlBzgba" {
-  project     = "examplea"
+  project     = "pike"
   role_id     = "terraform_pike"
   title       = "terraformXVlBzgba"
   description = "A user with least privileges"

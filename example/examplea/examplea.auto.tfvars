@@ -1,7 +1,7 @@
 account_id    = "756760134552-compute@developer.gserviceaccount.com"
 zone          = "europe-west2-a"
 name          = "bastion"
-project       = "examplea"
+project       = "pike"
 service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]
@@ -16,4 +16,4 @@ network_interface = {
   subnetwork_project = ""
 }
 
-keyring = "examplea"
+keyring = "pike"
