@@ -1,6 +1,6 @@
 zone          = "europe-west2-a"
 name          = "bastion"
-project       = "examplea"
+project       = "pike"
 service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]

@@ -65,7 +65,7 @@ variable "nat_ip" {
 
 variable "keyring" {
   type    = string
-  default = "examplea"
+  default = "pike"
 }
 
 variable "location" {

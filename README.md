@@ -52,7 +52,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google"></a> [google](#provider\_google) | 4.34.0 |
 
 ## Modules
 
@@ -74,7 +74,7 @@ No modules.
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `any` | n/a | yes |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
 | <a name="input_image"></a> [image](#input\_image) | Describes the base image used | `map(any)` | n/a | yes |
-| <a name="input_keyring"></a> [keyring](#input\_keyring) | n/a | `string` | `"examplea"` | no |
+| <a name="input_keyring"></a> [keyring](#input\_keyring) | n/a | `string` | `"pike"` | no |
 | <a name="input_kms_key_name"></a> [kms\_key\_name](#input\_kms\_key\_name) | n/a | `string` | `"bastion"` | no |
 | <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"europe-west1"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
