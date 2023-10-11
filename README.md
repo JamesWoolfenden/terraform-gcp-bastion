@@ -1,6 +1,6 @@
 # terraform-gcp-bastion
 
-[![Build Status](https://github.com/JamesWoolfenden/terraform-gcp-bastion/workflows/Verify%20and%20Bump/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-gcp-bastion)
+[![Build Status](https://github.com/JamesWoolfenden/terraform-gcp-bastion/workflows/Verify/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-gcp-bastion)
 [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-gcp-bastion.svg)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/JamesWoolfenden/terraform-gcp-bastion.svg?label=latest)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.14.0-blue.svg)
@@ -52,7 +52,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.34.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
@@ -103,15 +103,13 @@ No modules.
 The Terraform resource required is:
 
 ```golang
-resource "google_project_iam_custom_role" "terraformXVlBzgba" {
+
+resource "google_project_iam_custom_role" "terraform_pike" {
   project     = "pike"
   role_id     = "terraform_pike"
-  title       = "terraformXVlBzgba"
+  title       = "terraform_pike"
   description = "A user with least privileges"
   permissions = [
-    "compute.addresses.create",
-    "compute.addresses.delete",
-    "compute.addresses.get",
     "compute.disks.create",
     "compute.firewalls.create",
     "compute.firewalls.delete",
@@ -123,13 +121,13 @@ resource "google_project_iam_custom_role" "terraformXVlBzgba" {
     "compute.instances.setMetadata",
     "compute.instances.setTags",
     "compute.networks.updatePolicy",
-    "compute.networks.use",
     "compute.subnetworks.use",
     "compute.subnetworks.useExternalIp",
     "compute.zones.get",
     "iam.serviceAccounts.get"
   ]
 }
+
 
 ```
 <!-- END OF PRE-COMMIT-PIKE DOCS HOOK -->
