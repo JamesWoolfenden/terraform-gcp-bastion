@@ -74,6 +74,7 @@ No modules.
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `any` | n/a | yes |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
 | <a name="input_image"></a> [image](#input\_image) | Describes the base image used | `map(any)` | n/a | yes |
+| <a name="input_init_script"></a> [init\_script](#input\_init\_script) | n/a | `string` | n/a | yes |
 | <a name="input_keyring"></a> [keyring](#input\_keyring) | n/a | `string` | `"pike"` | no |
 | <a name="input_kms_key_name"></a> [kms\_key\_name](#input\_kms\_key\_name) | n/a | `string` | `"bastion"` | no |
 | <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"europe-west1"` | no |
@@ -81,7 +82,6 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | The name of the Bastion Instance | `string` | `"bastion"` | no |
 | <a name="input_nat_ip"></a> [nat\_ip](#input\_nat\_ip) | Values set if using a Static IP | `any` | `null` | no |
 | <a name="input_network_interface"></a> [network\_interface](#input\_network\_interface) | n/a | `map(any)` | n/a | yes |
-| <a name="input_project"></a> [project](#input\_project) | The GCP project | `string` | n/a | yes |
 | <a name="input_service_email"></a> [service\_email](#input\_service\_email) | Service account username | `string` | n/a | yes |
 | <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | n/a | `list(any)` | <pre>[<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]</pre> | no |
 | <a name="input_source_cidrs"></a> [source\_cidrs](#input\_source\_cidrs) | The ranges to allow to connect to the bastion | `list(any)` | n/a | yes |
@@ -155,7 +155,7 @@ Please use the [issue tracker](https://github.com/jameswoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright © 2019-2022 James Woolfenden
+Copyright © 2019-2023 James Woolfenden
 
 ## License
 

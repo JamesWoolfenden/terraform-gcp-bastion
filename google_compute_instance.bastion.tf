@@ -1,6 +1,5 @@
 resource "google_compute_instance" "bastion" {
   #checkov:skip=CKV_GCP_38:gcp encrypted by default
-  project      = var.project
   name         = var.name
   machine_type = var.machine_type
   zone         = var.zone
@@ -22,7 +21,7 @@ resource "google_compute_instance" "bastion" {
   }
 
   metadata = {
-    startup-script         = file("${path.module}/template/install-kube.sh")
+    startup-script         = var.init_script
     enable-oslogin         = "TRUE"
     block-project-ssh-keys = true
   }

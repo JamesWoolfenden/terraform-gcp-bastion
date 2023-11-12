@@ -3,12 +3,6 @@ variable "name" {
   description = "The name of the Bastion Instance"
   default     = "bastion"
 }
-
-variable "project" {
-  type        = string
-  description = "The GCP project"
-}
-
 variable "network_interface" {
   type        = map(any)
   description = ""
@@ -78,3 +72,7 @@ variable "kms_key_name" {
 }
 
 variable "account_id" {}
+
+variable "init_script" {
+  type = string
+}

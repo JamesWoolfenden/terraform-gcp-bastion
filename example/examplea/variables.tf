@@ -3,11 +3,6 @@ variable "name" {
   type        = string
 }
 
-variable "project" {
-  description = "The GCP project your targeting, may not be where the instances exist"
-  type        = string
-}
-
 variable "network_interface" {
   description = ""
   type        = map(any)
