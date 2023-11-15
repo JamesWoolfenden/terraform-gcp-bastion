@@ -10,3 +10,6 @@ module "bastion" {
   keyring           = var.keyring
   init_script       = file("install-kube.sh")
 }
+
+
+# data google_projects "pike" {}
