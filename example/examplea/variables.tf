@@ -34,11 +34,11 @@ variable "keyring" {
 }
 
 variable "project" {
-  type = string
+  type        = string
   description = "(optional) describe your variable"
 }
 
 variable "account_id" {
-  type = string
+  type        = string
   description = "(optional) describe your variable"
 }
