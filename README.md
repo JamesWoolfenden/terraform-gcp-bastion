@@ -49,7 +49,7 @@ No requirements.
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
@@ -59,7 +59,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [google_compute_firewall.ssh-bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_instance.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
 | [google_compute_image.image](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
@@ -68,7 +68,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `any` | n/a | yes |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
 | <a name="input_image"></a> [image](#input\_image) | Describes the base image used | `map(any)` | n/a | yes |
@@ -81,15 +81,15 @@ No modules.
 | <a name="input_nat_ip"></a> [nat\_ip](#input\_nat\_ip) | Values set if using a Static IP | `any` | `null` | no |
 | <a name="input_network_interface"></a> [network\_interface](#input\_network\_interface) | n/a | `map(any)` | n/a | yes |
 | <a name="input_service_email"></a> [service\_email](#input\_service\_email) | Service account username | `string` | n/a | yes |
-| <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | n/a | `list(any)` | <pre>[<br>  "https://www.googleapis.com/auth/cloud-platform"<br>]</pre> | no |
+| <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | n/a | `list(any)` | <pre>[<br/>  "https://www.googleapis.com/auth/cloud-platform"<br/>]</pre> | no |
 | <a name="input_source_cidrs"></a> [source\_cidrs](#input\_source\_cidrs) | The ranges to allow to connect to the bastion | `list(any)` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Hard-coded tags that associates the correct firewall to the instance | `list(any)` | <pre>[<br>  "bastion-ssh"<br>]</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Hard-coded tags that associates the correct firewall to the instance | `list(any)` | <pre>[<br/>  "bastion-ssh"<br/>]</pre> | no |
 | <a name="input_zone"></a> [zone](#input\_zone) | The GCP zone | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_bastion"></a> [bastion](#output\_bastion) | The Attributes of the Bastion |
 | <a name="output_firewall"></a> [firewall](#output\_firewall) | The Attributes of the firewall |
 | <a name="output_image"></a> [image](#output\_image) | The Attributes of the Image |
