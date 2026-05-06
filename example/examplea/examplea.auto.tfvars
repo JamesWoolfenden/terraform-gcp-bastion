@@ -1,7 +1,7 @@
-account_id    = "pike-service@pike-gcp.iam.gserviceaccount.com"
+account_id    = "pike-service"
 zone          = "europe-west2-a"
 name          = "bastion"
-project       = "pike-gcp"
+project       = "pike-477416"
 service_email = ""
 region        = "europe-west2"
 source_cidrs  = ["0.0.0.0/0"]

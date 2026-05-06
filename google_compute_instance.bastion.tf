@@ -27,7 +27,7 @@ resource "google_compute_instance" "bastion" {
   }
 
   service_account {
-    email  = data.google_service_account.default.email
+    email  = google_service_account.default.email
     scopes = var.service_scope
   }
 

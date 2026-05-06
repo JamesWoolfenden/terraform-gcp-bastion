@@ -62,8 +62,8 @@ No modules.
 | ---- | ---- |
 | [google_compute_firewall.ssh-bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_instance.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
+| [google_service_account.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_compute_image.image](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
-| [google_service_account.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/service_account) | data source |
 
 ## Inputs
 
@@ -126,7 +126,10 @@ resource "google_project_iam_custom_role" "terraform_pike" {
     "compute.subnetworks.use",
     "compute.subnetworks.useExternalIp",
     "compute.zones.get",
-    "iam.serviceAccounts.get"
+    "iam.serviceAccounts.create",
+    "iam.serviceAccounts.delete",
+    "iam.serviceAccounts.get",
+    "iam.serviceAccounts.update"
   ]
 }
 
