@@ -1,4 +1,4 @@
-account_id    = "pike-service"
+account_id    = "pike-bastion"
 zone          = "europe-west2-a"
 name          = "bastion"
 project       = "pike-477416"
