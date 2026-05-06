@@ -4,10 +4,8 @@
 [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-gcp-bastion.svg)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/JamesWoolfenden/terraform-gcp-bastion.svg?label=latest)](https://github.com/JamesWoolfenden/terraform-gcp-bastion/releases/latest)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.14.0-blue.svg)
-[![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/JamesWoolfenden/terraform-gcp-bastion/cis_aws)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=JamesWoolfenden%2Fterraform-gcp-bastion&benchmark=CIS+AWS+V1.2)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![checkov](https://img.shields.io/badge/checkov-verified-brightgreen)](https://www.checkov.io/)
-[![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/jameswoolfenden/terraform-gcp-bastion/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=JamesWoolfenden%2Fterraform-gcp-bastion&benchmark=INFRASTRUCTURE+SECURITY)
 
 The beginnings of a bastion module for GCP, now with compute firewall options.
 The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins. You'll need to add the service role an OS role to your users they will be able to SSH into it.
@@ -105,12 +103,13 @@ The Terraform resource required is:
 ```golang
 
 resource "google_project_iam_custom_role" "terraform_pike" {
-  project     = "pike"
+  project     = "pike-477416"
   role_id     = "terraform_pike"
   title       = "terraform_pike"
   description = "A user with least privileges"
   permissions = [
     "compute.disks.create",
+    "compute.disks.setLabels",
     "compute.firewalls.create",
     "compute.firewalls.delete",
     "compute.firewalls.get",
@@ -118,8 +117,11 @@ resource "google_project_iam_custom_role" "terraform_pike" {
     "compute.instances.create",
     "compute.instances.delete",
     "compute.instances.get",
+    "compute.instances.setLabels",
     "compute.instances.setMetadata",
     "compute.instances.setTags",
+    "compute.instances.stop",
+    "compute.instances.updateNetworkInterface",
     "compute.networks.updatePolicy",
     "compute.subnetworks.use",
     "compute.subnetworks.useExternalIp",
@@ -133,7 +135,6 @@ resource "google_project_iam_custom_role" "terraform_pike" {
 <!-- END OF PRE-COMMIT-PIKE DOCS HOOK -->
 
 ## Information
-
 
 ## Related Projects
 
@@ -155,7 +156,7 @@ Please use the [issue tracker](https://github.com/jameswoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright © 2019-2023 James Woolfenden
+Copyright © 2019-2026 James Woolfenden
 
 ## License
 
