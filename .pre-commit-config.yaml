@@ -1,4 +1,4 @@
----
+﻿---
 # yamllint disable rule:line-length
 default_language_version:
   python: python3.11
@@ -55,3 +55,5 @@ repos:
     hooks:
       - id: ghat-go
         args: ["swot","-d", "."]
+      - id: ghat-go-sift
+        args: ["sift","-d", "."]
