@@ -1,4 +1,4 @@
-﻿default_language_version:
+default_language_version:
     python: python3.11
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
@@ -59,7 +59,7 @@ repos:
     hooks:
       - id: actionlint
 -   repo: https://github.com/jameswoolfenden/ghat
-    rev: a386050ae690ce55f567aaf177fa0516427f014a # v0.1.28
+    rev: 783f1adff1b67e121f0a3af745979b0ccab69e11 # v0.1.31
     hooks:
     -   id: ghat-go
     -   id: ghat-go-sift
