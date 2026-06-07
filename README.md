@@ -7,11 +7,21 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![checkov](https://img.shields.io/badge/checkov-verified-brightgreen)](https://www.checkov.io/)
 
-The beginnings of a bastion module for GCP, now with compute firewall options.
-The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins. You'll need to add the service role an OS role to your users they will be able to SSH into it.
+A bastion module for GCP, built around the modern, no-external-IP pattern: the
+instance has **no public IP and no SSH port exposed to the internet**. Access
+is exclusively through [Identity-Aware Proxy TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding),
+governed entirely by IAM + OS Login and fully audited via Cloud Audit Logs.
+The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins.
 Basic Kubernetes tools are also installed into the bastion by **default**.
 
-2 examples are included, one with and one without a static IP.
+Security controls enforced by the module (not configurable):
+
+- No external IP — `access_config` is never created
+- Firewall ingress restricted to Google's fixed IAP TCP forwarding range (`35.235.240.0/20`) on port 22, with flow logging enabled
+- OS Login enabled, project SSH keys blocked
+- Shielded VM: Secure Boot, vTPM, integrity monitoring
+- Customer-managed encryption key (CMEK) required for the boot disk
+
 To find the image family and project:
 
 ```cli
@@ -21,6 +31,17 @@ gcloud compute images list
 ```cli
 gcloud kms locations list
 gcloud kms keyrings create --location=europe-west1 pike
+gcloud kms keys create bastion --location=europe-west1 --keyring=pike --purpose=encryption
+```
+
+## Access
+
+Once `iap_members` has granted a principal `roles/iap.tunnelResourceAccessor`
+(and they hold OS Login, e.g. `roles/compute.osLogin`), they can reach the
+bastion with no further network setup:
+
+```cli
+gcloud compute ssh bastion --zone europe-west2-a --tunnel-through-iap
 ```
 
 ## Usage
@@ -34,9 +55,8 @@ module "bastion" {
   image              = var.image
   name               = var.name
   network_interface  = var.network_interface
-  project            = var.project
-  service_email      = var.service_email
-  source_cidrs       = var.source_cidrs
+  account_id         = var.account_id
+  iap_members        = ["user:alice@example.com"]
   zone               = var.zone
 }
 ```
@@ -62,27 +82,30 @@ No modules.
 | ---- | ---- |
 | [google_compute_firewall.ssh-bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_instance.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
+| [google_iap_tunnel_instance_iam_member.accessor](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iap_tunnel_instance_iam_member) | resource |
+| [google_kms_crypto_key_iam_member.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key_iam_member) | resource |
 | [google_service_account.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
-| [google_compute_image.image](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
+| [google_compute_image.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
+| [google_kms_crypto_key.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/kms_crypto_key) | data source |
+| [google_kms_key_ring.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/kms_key_ring) | data source |
+| [google_project.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `any` | n/a | yes |
+| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | The ID of the service account for the bastion host | `string` | n/a | yes |
 | <a name="input_firewall"></a> [firewall](#input\_firewall) | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
+| <a name="input_iap_members"></a> [iap\_members](#input\_iap\_members) | IAM members granted roles/iap.tunnelResourceAccessor on this bastion, e.g. ["user:alice@example.com", "group:ops@example.com"]. Required - with no external IP and no public SSH ingress, this is the only way anyone reaches the bastion. | `list(string)` | n/a | yes |
 | <a name="input_image"></a> [image](#input\_image) | Describes the base image used | `map(any)` | n/a | yes |
-| <a name="input_init_script"></a> [init\_script](#input\_init\_script) | n/a | `string` | n/a | yes |
-| <a name="input_keyring"></a> [keyring](#input\_keyring) | n/a | `string` | `"pike"` | no |
-| <a name="input_kms_key_name"></a> [kms\_key\_name](#input\_kms\_key\_name) | n/a | `string` | `"bastion"` | no |
-| <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"europe-west1"` | no |
+| <a name="input_init_script"></a> [init\_script](#input\_init\_script) | The initialization script for the bastion host | `string` | n/a | yes |
+| <a name="input_keyring"></a> [keyring](#input\_keyring) | The keyring to use for the bastion host | `string` | `"pike"` | no |
+| <a name="input_kms_key_name"></a> [kms\_key\_name](#input\_kms\_key\_name) | The name of the KMS key to use for encrypting the boot disk of the bastion host | `string` | `"bastion"` | no |
+| <a name="input_location"></a> [location](#input\_location) | The location of the keyring and the KMS key | `string` | `"europe-west1"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the Bastion Instance | `string` | `"bastion"` | no |
-| <a name="input_nat_ip"></a> [nat\_ip](#input\_nat\_ip) | Values set if using a Static IP | `any` | `null` | no |
-| <a name="input_network_interface"></a> [network\_interface](#input\_network\_interface) | n/a | `map(any)` | n/a | yes |
-| <a name="input_service_email"></a> [service\_email](#input\_service\_email) | Service account username | `string` | n/a | yes |
-| <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | n/a | `list(any)` | <pre>[<br/>  "https://www.googleapis.com/auth/cloud-platform"<br/>]</pre> | no |
-| <a name="input_source_cidrs"></a> [source\_cidrs](#input\_source\_cidrs) | The ranges to allow to connect to the bastion | `list(any)` | n/a | yes |
+| <a name="input_network_interface"></a> [network\_interface](#input\_network\_interface) | The network interface configuration for the bastion host | `map(any)` | n/a | yes |
+| <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | The scopes to assign to the service account of the bastion host | `list(any)` | <pre>[<br/>  "https://www.googleapis.com/auth/logging.write",<br/>  "https://www.googleapis.com/auth/monitoring.write"<br/>]</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Hard-coded tags that associates the correct firewall to the instance | `list(any)` | <pre>[<br/>  "bastion-ssh"<br/>]</pre> | no |
 | <a name="input_zone"></a> [zone](#input\_zone) | The GCP zone | `string` | n/a | yes |
 
@@ -108,6 +131,10 @@ resource "google_project_iam_custom_role" "terraform_pike" {
   title       = "terraform_pike"
   description = "A user with least privileges"
   permissions = [
+    "cloudkms.cryptoKeys.get",
+    "cloudkms.cryptoKeys.getIamPolicy",
+    "cloudkms.cryptoKeys.setIamPolicy",
+    "cloudkms.keyRings.get",
     "compute.disks.create",
     "compute.disks.setLabels",
     "compute.firewalls.create",
@@ -129,7 +156,10 @@ resource "google_project_iam_custom_role" "terraform_pike" {
     "iam.serviceAccounts.create",
     "iam.serviceAccounts.delete",
     "iam.serviceAccounts.get",
-    "iam.serviceAccounts.update"
+    "iam.serviceAccounts.update",
+    "iap.tunnelInstances.getIamPolicy",
+    "iap.tunnelInstances.setIamPolicy",
+    "resourcemanager.projects.get"
   ]
 }
 

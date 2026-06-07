@@ -12,5 +12,5 @@ output "firewall" {
 
 output "image" {
   description = "The Attributes of the Image"
-  value       = data.google_compute_image.image
+  value       = data.google_compute_image.bastion
 }

@@ -36,21 +36,21 @@ repos:
     hooks:
     -   id: markdownlint
 -   repo: https://github.com/jameswoolfenden/pre-commit
-    rev: 4997cf8b63896568143d5c6e820741214bc9f314 # v0.1.61
+    rev: c5bdf92051a9e574d62152d81a3bd98a71816dd3 # v0.1.62
     hooks:
     -   id: terraform-fmt
         language_version: python3.11
     -   id: tf2docs
         language_version: python3.11
 -   repo: https://github.com/bridgecrewio/checkov
-    rev: e52a901a3829d818d20c9b75e544845c8b756968 # 3.2.526
+    rev: 062b60e4b299bc621f11a01a577274db0805e552 # 3.2.533
     hooks:
     -   id: checkov
         files: .
         verbose: true
         entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
 -   repo: https://github.com/jameswoolfenden/pike
-    rev: 4b5670a3254572b7853ebeb4c66718f2e6e09c51 # v0.4.3
+    rev: 4caef3be76b752412521afa4cc795211766774b2 # v1.0.0
     hooks:
     -   id: pike-docs-go
         args: ["readme","-d", ".", "-i"]
@@ -59,7 +59,7 @@ repos:
     hooks:
       - id: actionlint
 -   repo: https://github.com/jameswoolfenden/ghat
-    rev: 783f1adff1b67e121f0a3af745979b0ccab69e11 # v0.1.31
+    rev: 1a9c41d5197dcbce3cb81b3a88d2762086079a1d # v0.1.34
     hooks:
     -   id: ghat-go
     -   id: ghat-go-sift

@@ -8,6 +8,12 @@ permissions:
   id-token: write
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pr:
     uses: JamesWoolfenden/.github/.github/workflows/terraform-pr-gcp.yml@main
+    with:
+      service_account: terraform-gcp-bastion@pike-477416.iam.gserviceaccount.com
