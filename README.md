@@ -12,7 +12,25 @@ instance has **no public IP and no SSH port exposed to the internet**. Access
 is exclusively through [Identity-Aware Proxy TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding),
 governed entirely by IAM + OS Login and fully audited via Cloud Audit Logs.
 The Bastion is designed to work primarily with a private Kubernetes Cluster and is enabled for OS Logins.
-Basic Kubernetes tools are also installed into the bastion by **default**.
+Basic Kubernetes tools are also installed into the bastion by **default** — one of its
+main purposes is debugging Helm installations against a private cluster — including
+the [GitLab agent](https://docs.gitlab.com/user/clusters/agent/install/) chart
+(`gitlab/gitlab-agent` from `https://charts.gitlab.io`) — so `kubectl` and `helm`
+need to be reliably present and usable from day one.
+
+> **Locked-down networks:** because the bastion has no external IP, `init_script`
+> steps that reach out to public apt/Helm repos (`pkgs.k8s.io`, `baltocdn.com`,
+> etc.) will fail without Cloud NAT and an explicit egress allowlist. If your
+> network doesn't permit that, prefer one of:
+>
+> - **Artifact Registry remote repositories** — proxy upstream apt and Helm
+>   sources, including third-party chart repos like `charts.gitlab.io`, through
+>   your own project, so the bastion only needs to reach `*.pkg.dev`, which is
+>   typically already allowed for GCP-native traffic — handy for the charts
+>   you're actively debugging too.
+> - **Bake the tools into the image** (e.g. with Packer) so `init_script` needs
+>   no runtime network access at all — more rigid to version-bump, but works
+>   with zero egress.
 
 Security controls enforced by the module (not configurable):
 
