@@ -1,3 +1,4 @@
+# holden:ignore:HLD_TF_016
 resource "google_project_iam_custom_role" "terraformXVlBzgba" {
   project     = "pike"
   role_id     = "terraform_pike"

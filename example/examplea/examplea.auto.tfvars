@@ -1,8 +1,7 @@
-account_id  = "pike-bastion"
-zone        = "europe-west2-a"
-name        = "bastion"
-project     = "pike-477416"
-region      = "europe-west2"
+account_id = "pike-bastion"
+zone       = "europe-west2-a"
+name       = "bastion"
+
 iap_members = ["user:james.woolfenden@gmail.com"]
 image = {
   family  = "ubuntu-minimal-2204-lts"

@@ -25,14 +25,6 @@ variable "zone" {
   }
 }
 
-variable "region" {
-  description = "The region in which to create the bastion host"
-  type        = string
-  validation {
-    condition     = length(var.region) > 0
-    error_message = "The region variable must not be empty."
-  }
-}
 
 variable "image" {
   description = "The image to use for the bastion host"
@@ -61,14 +53,6 @@ variable "keyring" {
   }
 }
 
-variable "project" {
-  type        = string
-  description = "The project in which to create the bastion host"
-  validation {
-    condition     = length(var.project) > 0
-    error_message = "The project variable must not be empty."
-  }
-}
 
 variable "account_id" {
   type        = string

@@ -23,7 +23,7 @@ resource "google_compute_instance" "bastion" {
 
   metadata = {
     startup-script         = var.init_script
-    enable-oslogin         = "TRUE"
+    enable-oslogin         = true
     block-project-ssh-keys = true
   }
 

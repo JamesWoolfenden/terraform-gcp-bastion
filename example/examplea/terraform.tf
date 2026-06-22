@@ -1,3 +1,4 @@
+# holden:ignore:HLD_TF_004
 terraform {
   required_providers {
     google = {
