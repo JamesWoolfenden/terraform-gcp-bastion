@@ -98,14 +98,12 @@ No modules.
 
 | Name | Type |
 | ---- | ---- |
-| [google_compute_firewall.ssh-bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.ssh_bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_instance.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
 | [google_iap_tunnel_instance_iam_member.accessor](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iap_tunnel_instance_iam_member) | resource |
 | [google_kms_crypto_key_iam_member.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key_iam_member) | resource |
 | [google_service_account.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_compute_image.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_image) | data source |
-| [google_kms_crypto_key.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/kms_crypto_key) | data source |
-| [google_kms_key_ring.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/kms_key_ring) | data source |
 | [google_project.bastion](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
 
 ## Inputs
@@ -113,18 +111,17 @@ No modules.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | The ID of the service account for the bastion host | `string` | n/a | yes |
-| <a name="input_firewall"></a> [firewall](#input\_firewall) | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `number` | `0` | no |
+| <a name="input_firewall"></a> [firewall](#input\_firewall) | Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up | `bool` | `false` | no |
 | <a name="input_iap_members"></a> [iap\_members](#input\_iap\_members) | IAM members granted roles/iap.tunnelResourceAccessor on this bastion, e.g. ["user:alice@example.com", "group:ops@example.com"]. Required - with no external IP and no public SSH ingress, this is the only way anyone reaches the bastion. | `list(string)` | n/a | yes |
-| <a name="input_image"></a> [image](#input\_image) | Describes the base image used | `map(any)` | n/a | yes |
+| <a name="input_image"></a> [image](#input\_image) | Describes the base image used | <pre>object({<br/>    family  = string<br/>    project = string<br/>  })</pre> | n/a | yes |
 | <a name="input_init_script"></a> [init\_script](#input\_init\_script) | The initialization script for the bastion host | `string` | n/a | yes |
-| <a name="input_keyring"></a> [keyring](#input\_keyring) | The keyring to use for the bastion host | `string` | `"pike"` | no |
-| <a name="input_kms_key_name"></a> [kms\_key\_name](#input\_kms\_key\_name) | The name of the KMS key to use for encrypting the boot disk of the bastion host | `string` | `"bastion"` | no |
-| <a name="input_location"></a> [location](#input\_location) | The location of the keyring and the KMS key | `string` | `"europe-west1"` | no |
-| <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | The machine type for the Bastion | `string` | `"n1-standard-1"` | no |
+| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The id (self\_link) of an existing google\_kms\_crypto\_key to encrypt the bastion's boot disk with. The module does not own the key's lifecycle - create it separately (e.g. centrally-managed KMS infrastructure) and pass its id in. | `string` | n/a | yes |
+| <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | The machine type for the Bastion | `string` | `"e2-medium"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the Bastion Instance | `string` | `"bastion"` | no |
-| <a name="input_network_interface"></a> [network\_interface](#input\_network\_interface) | The network interface configuration for the bastion host | `map(any)` | n/a | yes |
-| <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | The scopes to assign to the service account of the bastion host | `list(any)` | <pre>[<br/>  "https://www.googleapis.com/auth/logging.write",<br/>  "https://www.googleapis.com/auth/monitoring.write"<br/>]</pre> | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Hard-coded tags that associates the correct firewall to the instance | `list(any)` | <pre>[<br/>  "bastion-ssh"<br/>]</pre> | no |
+| <a name="input_network_interface"></a> [network\_interface](#input\_network\_interface) | The network interface configuration for the bastion host | <pre>object({<br/>    network            = string<br/>    subnetwork         = string<br/>    subnetwork_project = string<br/>  })</pre> | n/a | yes |
+| <a name="input_resource_policies"></a> [resource\_policies](#input\_resource\_policies) | Self-links of existing google\_compute\_resource\_policy resources to attach to the bastion (e.g. an instance schedule to stop it outside working hours). The module does not own the policy's lifecycle - create it separately and pass its self\_link in. | `list(string)` | `[]` | no |
+| <a name="input_service_scope"></a> [service\_scope](#input\_service\_scope) | The scopes to assign to the service account of the bastion host | `list(string)` | <pre>[<br/>  "https://www.googleapis.com/auth/logging.write",<br/>  "https://www.googleapis.com/auth/monitoring.write"<br/>]</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Hard-coded tags that associates the correct firewall to the instance | `list(string)` | <pre>[<br/>  "bastion-ssh"<br/>]</pre> | no |
 | <a name="input_zone"></a> [zone](#input\_zone) | The GCP zone | `string` | n/a | yes |
 
 ## Outputs
@@ -142,17 +139,15 @@ No modules.
 The Terraform resource required is:
 
 ```golang
-
+# apply role
 resource "google_project_iam_custom_role" "terraform_pike" {
   project     = "pike-477416"
   role_id     = "terraform_pike"
   title       = "terraform_pike"
   description = "A user with least privileges"
   permissions = [
-    "cloudkms.cryptoKeys.get",
     "cloudkms.cryptoKeys.getIamPolicy",
     "cloudkms.cryptoKeys.setIamPolicy",
-    "cloudkms.keyRings.get",
     "compute.disks.create",
     "compute.disks.setLabels",
     "compute.firewalls.create",
@@ -177,6 +172,25 @@ resource "google_project_iam_custom_role" "terraform_pike" {
     "iam.serviceAccounts.update",
     "iap.tunnelInstances.getIamPolicy",
     "iap.tunnelInstances.setIamPolicy",
+    "resourcemanager.projects.get"
+  ]
+}
+
+# plan role
+resource "google_project_iam_custom_role" "terraform_pike_plan" {
+  project     = "pike-477416"
+  role_id     = "terraform_pike_plan"
+  title       = "terraform_pike_plan"
+  description = "A user with least privileges"
+  permissions = [
+    "cloudkms.cryptoKeys.getIamPolicy",
+    "compute.firewalls.get",
+    "compute.images.get",
+    "compute.instances.get",
+    "compute.zones.get",
+    "iam.serviceAccounts.get",
+    "iap.tunnelInstances.getIamPolicy",
+    "resourcemanager.organizations.get",
     "resourcemanager.projects.get"
   ]
 }

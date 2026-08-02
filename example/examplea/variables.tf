@@ -9,10 +9,14 @@ variable "name" {
 
 variable "network_interface" {
   description = "The network interface configuration for the bastion host"
-  type        = map(any)
+  type = object({
+    network            = string
+    subnetwork         = string
+    subnetwork_project = string
+  })
   validation {
-    condition     = length(var.network_interface) > 0
-    error_message = "The network_interface variable must not be empty."
+    condition     = length(var.network_interface.network) > 0 && length(var.network_interface.subnetwork) > 0 && length(var.network_interface.subnetwork_project) > 0
+    error_message = "network_interface must provide non-empty network, subnetwork and subnetwork_project."
   }
 }
 
@@ -28,10 +32,13 @@ variable "zone" {
 
 variable "image" {
   description = "The image to use for the bastion host"
-  type        = map(any)
+  type = object({
+    family  = string
+    project = string
+  })
   validation {
-    condition     = length(var.image) > 0
-    error_message = "The image variable must not be empty."
+    condition     = length(var.image.family) > 0 && length(var.image.project) > 0
+    error_message = "The image object must provide non-empty family and project."
   }
 }
 
@@ -43,16 +50,6 @@ variable "iap_members" {
     error_message = "iap_members must contain at least one IAM member, each prefixed with user:, group:, serviceAccount: or domain:."
   }
 }
-
-variable "keyring" {
-  description = "The keyring to use for the bastion host"
-  type        = string
-  validation {
-    condition     = length(var.keyring) > 0
-    error_message = "The keyring variable must not be empty."
-  }
-}
-
 
 variable "account_id" {
   type        = string

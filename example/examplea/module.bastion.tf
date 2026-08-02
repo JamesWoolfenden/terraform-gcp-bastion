@@ -11,7 +11,7 @@ module "bastion" {
   name              = var.name
   network_interface = var.network_interface
   zone              = var.zone
-  keyring           = var.keyring
+  kms_key_id        = google_kms_crypto_key.bastion.id
   init_script       = file("install-kube.sh")
   iap_members       = var.iap_members
 }

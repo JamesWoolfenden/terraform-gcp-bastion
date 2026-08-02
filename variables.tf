@@ -9,11 +9,19 @@ variable "name" {
 }
 
 variable "network_interface" {
-  type        = map(any)
+  type = object({
+    network            = string
+    subnetwork         = string
+    subnetwork_project = string
+  })
   description = "The network interface configuration for the bastion host"
   validation {
-    condition     = length(var.network_interface) > 0
-    error_message = "The network_interface variable must not be empty."
+    condition = alltrue([
+      length(trimspace(var.network_interface.network)) > 0,
+      length(trimspace(var.network_interface.subnetwork)) > 0,
+      length(trimspace(var.network_interface.subnetwork_project)) > 0,
+    ])
+    error_message = "The network_interface object must include non-empty network, subnetwork, and subnetwork_project values."
   }
 }
 
@@ -29,7 +37,7 @@ variable "zone" {
 variable "machine_type" {
   type        = string
   description = "The machine type for the Bastion"
-  default     = "n1-standard-1"
+  default     = "e2-medium"
   validation {
     condition     = length(var.machine_type) > 0
     error_message = "The machine_type variable must not be empty."
@@ -38,7 +46,7 @@ variable "machine_type" {
 
 variable "tags" {
   description = "Hard-coded tags that associates the correct firewall to the instance"
-  type        = list(any)
+  type        = list(string)
   default     = ["bastion-ssh"]
   validation {
     condition     = length(var.tags) > 0
@@ -47,26 +55,25 @@ variable "tags" {
 }
 
 variable "image" {
-  type        = map(any)
+  type = object({
+    family  = string
+    project = string
+  })
   description = "Describes the base image used"
   validation {
-    condition     = length(var.image) > 0
-    error_message = "The image variable must not be empty."
+    condition     = length(trimspace(var.image.family)) > 0 && length(trimspace(var.image.project)) > 0
+    error_message = "The image object must include non-empty family and project values."
   }
 }
 
 variable "firewall" {
   description = "Flag to control the creation or not of a firewall rule. Maybe not needed if you use a pre-prepared or shared set-up"
-  type        = number
-  default     = 0
-  validation {
-    condition     = var.firewall == 0 || var.firewall == 1
-    error_message = "The firewall variable must be either 0 or 1."
-  }
+  type        = bool
+  default     = false
 }
 
 variable "service_scope" {
-  type        = list(any)
+  type        = list(string)
   description = "The scopes to assign to the service account of the bastion host"
   default = [
     "https://www.googleapis.com/auth/logging.write",
@@ -87,33 +94,23 @@ variable "iap_members" {
   }
 }
 
-variable "keyring" {
-  type        = string
-  default     = "pike"
-  description = "The keyring to use for the bastion host"
+variable "resource_policies" {
+  type        = list(string)
+  description = "Self-links of existing google_compute_resource_policy resources to attach to the bastion (e.g. an instance schedule to stop it outside working hours). The module does not own the policy's lifecycle - create it separately and pass its self_link in."
+  default     = []
   validation {
-    condition     = length(var.keyring) > 0
-    error_message = "The keyring variable must not be empty."
+    condition     = alltrue([for policy in var.resource_policies : length(trimspace(policy)) > 0])
+    error_message = "resource_policies must contain only non-empty strings."
   }
 }
 
-variable "location" {
+variable "kms_key_id" {
   type        = string
-  default     = "europe-west1"
-  description = "The location of the keyring and the KMS key"
+  sensitive   = true
+  description = "The id (self_link) of an existing google_kms_crypto_key to encrypt the bastion's boot disk with. The module does not own the key's lifecycle - create it separately (e.g. centrally-managed KMS infrastructure) and pass its id in."
   validation {
-    condition     = length(var.location) > 0
-    error_message = "The location variable must not be empty."
-  }
-}
-
-variable "kms_key_name" {
-  type        = string
-  default     = "bastion"
-  description = "The name of the KMS key to use for encrypting the boot disk of the bastion host"
-  validation {
-    condition     = length(var.kms_key_name) > 0
-    error_message = "The kms_key_name variable must not be empty."
+    condition     = length(var.kms_key_id) > 0
+    error_message = "The kms_key_id variable must not be empty."
   }
 }
 

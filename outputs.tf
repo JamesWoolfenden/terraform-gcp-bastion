@@ -7,7 +7,7 @@ output "bastion" {
 
 output "firewall" {
   description = "The Attributes of the firewall"
-  value       = google_compute_firewall.ssh-bastion
+  value       = google_compute_firewall.ssh_bastion
 }
 
 output "image" {

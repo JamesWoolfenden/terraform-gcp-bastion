@@ -1,5 +1,5 @@
-resource "google_compute_firewall" "ssh-bastion" {
-  count       = var.firewall
+resource "google_compute_firewall" "ssh_bastion" {
+  count       = var.firewall ? 1 : 0
   name        = var.name
   description = "Allow SSH to the bastion via Identity-Aware Proxy TCP forwarding only"
   network     = var.network_interface["network"]

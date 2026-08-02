@@ -32,7 +32,7 @@ repos:
     -   id: shell-lint
         exclude: template|\.template$
 -   repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: e72a3ca1632f0b11a07d171449fe447a7ff6795e # v0.48.0
+    rev: 5b5dddc4fb0f83c3ea1fc5616fa63e115dce83e0 # v0.49.1
     hooks:
     -   id: markdownlint
 -   repo: https://github.com/jameswoolfenden/pre-commit
@@ -43,23 +43,23 @@ repos:
     -   id: tf2docs
         language_version: python3.11
 -   repo: https://github.com/bridgecrewio/checkov
-    rev: 062b60e4b299bc621f11a01a577274db0805e552 # 3.2.533
+    rev: 27f879342227f385ce1dbd619155f9aaed9d3cb4 # 3.3.9
     hooks:
     -   id: checkov
         files: .
         verbose: true
         entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
 -   repo: https://github.com/jameswoolfenden/pike
-    rev: 4caef3be76b752412521afa4cc795211766774b2 # v1.0.0
+    rev: 741f708218a37ce07fa50556298e0a1dace541ac # v1.0.9
     hooks:
     -   id: pike-docs-go
         args: ["readme","-d", ".", "-i"]
 -   repo: 'https://github.com/rhysd/actionlint'
-    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca
+    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca # v1.7.12
     hooks:
       - id: actionlint
 -   repo: https://github.com/jameswoolfenden/ghat
-    rev: 1a9c41d5197dcbce3cb81b3a88d2762086079a1d # v0.1.34
+    rev: 08381491f793709efce1b6cdc117001429444901 # v0.1.50
     hooks:
     -   id: ghat-go
     -   id: ghat-go-sift

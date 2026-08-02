@@ -1,0 +1,51 @@
+{
+  "findings": [
+    {
+      "confidence": "high",
+      "explanation": "network_interface, image, kms_key_id, and resource_policies in this same file all use precise types (object({...}), a non-empty string with validation) \u2014 but tags (line 49) and service_scope (line 76) are still list(any), so Terraform can't catch a non-string element (e.g. a number or map slipped into the list) until it hits the provider at apply time. No deterministic rule catches this: HLD_TF_012 only checks that *a* type is declared, not how loosely, so a bare list(any) already satisfies it.",
+      "file": "variables.tf",
+      "first_seen": "2026-08-02",
+      "fix": "variable \"tags\" {\n  description = \"Hard-coded tags that associates the correct firewall to the instance\"\n  type        = list(string)\n  default     = [\"bastion-ssh\"]\n  validation {\n    condition     = length(var.tags) > 0\n    error_message = \"The tags variable must not be empty.\"\n  }\n}\n\nvariable \"service_scope\" {\n  type        = list(string)\n  description = \"The scopes to assign to the service account of the bastion host\"\n  default = [\n    \"https://www.googleapis.com/auth/logging.write\",\n    \"https://www.googleapis.com/auth/monitoring.write\",\n  ]\n  validation {\n    condition     = length(var.service_scope) > 0\n    error_message = \"The service_scope variable must not be empty.\"\n  }\n}",
+      "fixable": true,
+      "id": "HOLDEN_AI_001",
+      "last_seen": "2026-08-02",
+      "line": 49,
+      "principle": "maintainability",
+      "related_resources": [
+        "variable.service_scope"
+      ],
+      "remediation": "Change both to list(string) \u2014 every current usage (tags applied to the instance/firewall target_tags, OAuth scope URLs) is already a plain string.",
+      "resource": "variable.tags",
+      "severity": "LOW",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "tags and service_scope remain list(any) while sibling variables in the same file were tightened to strict types"
+    },
+    {
+      "confidence": "high",
+      "explanation": "The root module tightened these exact two inputs to object({...}) types earlier in this session (variables.tf:12-16, 58-61) specifically so Terraform catches a missing/misspelled key at plan time instead of a runtime index error. example/examplea/variables.tf:12 and :31 still declare them as map(any), so the type safety gained at the module boundary is invisible one hop up \u2014 a typo in examplea.auto.tfvars would still only surface as a conversion error deep in module.bastion's evaluation rather than at this file's own validation. Terraform's structural typing means it still works today (confirmed via terraform validate), so this is a documentation/consistency gap, not a functional break.",
+      "file": "example/examplea/variables.tf",
+      "first_seen": "2026-08-02",
+      "fix": "variable \"network_interface\" {\n  description = \"The network interface configuration for the bastion host\"\n  type = object({\n    network            = string\n    subnetwork         = string\n    subnetwork_project = string\n  })\n}\n\nvariable \"image\" {\n  description = \"The image to use for the bastion host\"\n  type = object({\n    family  = string\n    project = string\n  })\n}",
+      "fixable": true,
+      "id": "HOLDEN_AI_002",
+      "last_seen": "2026-08-02",
+      "line": 12,
+      "principle": "maintainability",
+      "related_resources": [
+        "variable.image",
+        "module.bastion (module.bastion.tf:12-13)"
+      ],
+      "remediation": "Mirror the module's types exactly: network_interface as object({ network = string, subnetwork = string, subnetwork_project = string }), image as object({ family = string, project = string }).",
+      "resource": "variable.network_interface",
+      "severity": "LOW",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Example's network_interface/image variables are still map(any), one hop from the module's now-strict object({...}) parameters"
+    }
+  ],
+  "scan_date": "2026-08-02T00:00:00Z",
+  "scan_path": ".",
+  "suggested_policies": [],
+  "suggested_suppressions": []
+}

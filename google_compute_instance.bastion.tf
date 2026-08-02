@@ -1,3 +1,5 @@
+# holden:ignore:HLD_GCP_170 — admin jump box, no sensitive in-use workload data to warrant Confidential Computing
+# holden:ignore:HLD_GCP_391 — reusable module applied to disposable example/test bastions that must support terraform destroy in CI; add a deletion_protection variable if a specific deployment needs it
 resource "google_compute_instance" "bastion" {
   name         = var.name
   machine_type = var.machine_type
@@ -5,7 +7,7 @@ resource "google_compute_instance" "bastion" {
   tags         = var.tags
 
   boot_disk {
-    kms_key_self_link = data.google_kms_crypto_key.bastion.id
+    kms_key_self_link = var.kms_key_id
     initialize_params {
       image = data.google_compute_image.bastion.name
     }
@@ -39,6 +41,8 @@ resource "google_compute_instance" "bastion" {
   }
 
   allow_stopping_for_update = true
+
+  resource_policies = var.resource_policies
 
   # The Compute Engine service agent must hold cloudkms.cryptoKeyEncrypterDecrypter
   # on the CMEK key before instance creation — the only link to that grant is via

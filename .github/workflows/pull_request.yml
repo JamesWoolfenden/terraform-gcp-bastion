@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+# holden:ignore:HLD_CI_017: references to our workflow
   pr:
     uses: JamesWoolfenden/.github/.github/workflows/terraform-pr-gcp.yml@main
     with:

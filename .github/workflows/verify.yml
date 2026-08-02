@@ -15,6 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # holden:ignore:HLD_CI_017: references to our workflow
   verify:
     uses: JamesWoolfenden/.github/.github/workflows/terraform-verify-gcp.yml@main
     with:
