@@ -40,30 +40,10 @@ check: init
 	terraform plan -detailed-exitcode
 
 destroy: init
-	terraform destroy -force
+	terraform destroy -auto-approve
 
 docs:
 	terraform-docs md . > README.md
-
-valid:
-	-terraform fmt -recursive
-	-checkov -d . --external-checks-dir ../../checkov
-	-terrascan scan
-	docker pull checkmarx/kics:latest
-	docker run -v $(CURDIR):/path checkmarx/kics:latest scan --path /path
-
-compare:
-	-checkov -d . --external-checks-dir ../../checkov -o json >../../output/checkov.json
-	-terrascan scan -o json -x json >../../output/terrascan.json
-	-tfsec . --out ../../output/tfsec.json -f json -s
-	docker pull checkmarx/kics:latest
-	docker run -v $(CURDIR):/path -v $(CURDIR)/../../output:/output checkmarx/kics:latest scan --path "/path" -o "/output/kics.json"
-
-conftest: plan convert
-	conftest test ./tfplan.json -p ../../policies
-
-opa: plan convert
-	opa eval --format pretty --data terraform.rego --input tfplan.json "data.terraform.analysis.authz"
 
 target:
 	@read -p "Enter Module to target:" MODULE;
@@ -71,6 +51,3 @@ target:
 
 purge:
 	$(BLAT)
-
-cost:
-	infracost breakdown --path . --usage-file infracost-usage.yml  --sync-usage-file --show-skipped

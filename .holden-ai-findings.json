@@ -42,6 +42,29 @@
       "status": "fixed",
       "suppression_reason": null,
       "title": "Example's network_interface/image variables are still map(any), one hop from the module's now-strict object({...}) parameters"
+    },
+    {
+      "confidence": "high",
+      "explanation": "HLD_GCP_091 (\"GCE instances must not use the default VPC network\") landed Unknown because network_interface.network resolves to var.network_interface[\"network\"], a required module variable with no default \u2014 the engine can't know the value from the module alone. But the example that calls this module concretely sets network = \"default\" (examplea.auto.tfvars:14), which is exactly the unsafe value the policy checks for. This matters more than a bare policy violation here: the entire module is built around IAP-only reachability \u2014 no external IP, plus a custom google_compute_firewall.ssh_bastion restricted to Google's 35.235.240.0/20 IAP range. GCP's auto-created default network ships with its own pre-existing default-allow-ssh firewall rule permitting tcp:22 from 0.0.0.0/0 to every instance in that network, unless a project has explicitly deleted it \u2014 a fact this repo can't see (project/account state, not IaC). If that default rule is still present, the bastion is reachable directly from the internet on port 22 regardless of the custom firewall rule, completely bypassing the IAP-only design the rest of the module is built to enforce.",
+      "file": "example/examplea/examplea.auto.tfvars",
+      "first_seen": "2026-08-02",
+      "fixable": false,
+      "id": "HOLDEN_AI_003",
+      "last_seen": "2026-08-02",
+      "line": 14,
+      "principle": "network-security",
+      "related_resources": [
+        "google_compute_instance.bastion (google_compute_instance.bastion.tf:20-24)",
+        "google_compute_firewall.ssh_bastion (google_compute_firewall.ssh-bastion.tf)"
+      ],
+      "remediation": "Point the example at a purpose-built VPC/subnetwork instead of \"default\" \u2014 either reference an existing corporate network by name, or add google_compute_network/google_compute_subnetwork resources to the example and wire their names into network_interface. No custom VPC resource exists anywhere in this repo today (confirmed via grep), so this isn't a one-line value swap.",
+      "resource": "module.bastion (google_compute_instance.bastion via network_interface.network)",
+      "severity": "HIGH",
+      "status": "open",
+      "supersedes": "HLD_GCP_091",
+      "suppression_reason": null,
+      "title": "Example resolves the bastion onto GCP's default VPC network, undermining the module's IAP-only design",
+      "unresolved_since": "2026-08-02"
     }
   ],
   "scan_date": "2026-08-02T00:00:00Z",
